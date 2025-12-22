@@ -1,0 +1,47 @@
+name: Validate TDD PR
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  validate-tdd:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR TDD requirements
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const core = require('@actions/core');
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              core.setFailed('No pull_request found in context.');
+              return;
+            }
+
+            // List commits in the PR
+            const commits = await github.rest.pulls.listCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+            });
+
+            const msgs = commits.data.map(c => (c.commit && c.commit.message ? c.commit.message.toUpperCase() : ''));
+            const hasRED = msgs.some(m => m.startsWith('RED:'));
+            const hasGREEN = msgs.some(m => m.startsWith('GREEN:'));
+            const hasREFACTOR = msgs.some(m => m.startsWith('REFACTOR:'));
+
+            const body = pr.body || '';
+            const hasBootstrap = body.includes('AGENT_BOOTSTRAP.md') || body.includes('.copilot-workflows/AGENT_BOOTSTRAP.md');
+
+            const errors = [];
+            if (!hasRED) errors.push("No commit with message starting with 'RED:' found.");
+            if (!hasGREEN) errors.push("No commit with message starting with 'GREEN:' found.");
+            if (!hasREFACTOR) errors.push("No commit with message starting with 'REFACTOR:' found.");
+            if (!hasBootstrap) errors.push("PR body does not reference `.copilot-workflows/AGENT_BOOTSTRAP.md` (paste the bootstrap line from the workflows).");
+
+            if (errors.length > 0) {
+              core.setFailed('TDD Validation failed:\n' + errors.join('\n'));
+            } else {
+              core.info('TDD Validation passed: RED/GREEN/REFACTOR commits found and bootstrap referenced.');
+            }

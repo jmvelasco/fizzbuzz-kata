@@ -104,7 +104,10 @@ You are jumping too big. Provide a sequence of smaller transformations (TPP) fro
 
 ### Example: how you (or your team) will use it in practice
 - Open Copilot Chat and paste the one-liner:
-Follow `.copilot-workflows/AGENT_BOOTSTRAP.md` and the TDD command tdd.md. Create the first failing test for FEATURE...
+Follow `.copilot-workflows/AGENT_BOOTSTRAP.md` and the TDD command `.copilot-workflows/commands/tdd.md` and `.copilot-workflows/rules/tdd.mdc`. 
+
+
+
 
 - Or use the VS Code snippet that inserts the line automatically as the first line of the chat prompt so you don’t need to type it.
 
