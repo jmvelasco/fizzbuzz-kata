@@ -1,8 +1,3 @@
----
-description: TDD cycle with TPP transformations for the GREEN step
-alwaysApply: true
----
-
 # Test-Driven Development (TDD)
 
 **ALWAYS follow the complete cycle:**
@@ -27,7 +22,6 @@ Write the test before production code:
 - I write the test → **Doesn't compile** (function/class doesn't exist)
 - I write the **minimum code** to make it compile (empty function, return null, etc.)
 - I run the test → **Fails** (incorrect behavior)
-- I commit the red test case
 - "How do we know this works?"
 
 ## 2. 🟢 GREEN
@@ -36,9 +30,7 @@ Implement the minimum to pass the test:
 - I follow **TPP (Transformation Priority Premise)** to choose the simplest transformation
 - Simple code, no premature optimizations
 - Make it work, we'll improve it later
-- The test passes 
-- I commit the green test case
-- I move to the next step
+- The test passes → I move to the next step
 
 ## 3. 🔵 REFACTOR
 
@@ -48,7 +40,6 @@ Once the test passes:
 - "Are the variable names clear?"
 - I follow the coding standards rules @.cursor/rules/coding-standards.mdc
 - I refactor while keeping tests green
-- I commit the refactor
 
 ## 4. 🔄 RE-EVALUATE
 

@@ -150,9 +150,9 @@ npm run validate        # Run compile + lint + test (full check)
 
 This template is maintained by [Software Crafters](https://softwarecrafters.io). Feel free to use it for your projects and katas!
 
-### Copilot Workflows
-
-Checkout the full [guide description](.copilot-workflows/README.md) about how to use IA Agent assisted development using copilot.
+### 🤖 Github Copilot
+∫
+Added to the template a set of configuration and documents files in order to follow a IA assisted development cycle.∫
 
 
 ## 📄 License
